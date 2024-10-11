@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onDestroy } from 'svelte';
+	import { token } from '../store/recording-state.store';
 
-	export let token: string;
 	let fps = 1;
 
 	let videoElement: HTMLVideoElement | null = null;
@@ -29,7 +29,7 @@
 				initializeCanvas(); // Initialize the reusable canvas
 
 				// Send a frame every second (1 FPS)
-				intervalId = window.setInterval(captureAndSendFrame, 1000 / 1);
+				intervalId = window.setInterval(captureAndSendFrame, 1000 / fps);
 			}
 		} catch (err) {
 			console.error('Error accessing the webcam', err);
@@ -82,7 +82,7 @@
 	});
 </script>
 
-<div class="flex flex-col items-center justify-center h-screen bg-gray-100">
+<div class="flex flex-col items-center justify-center h-screen">
 	<h1 class="text-2xl font-bold mb-4">Webcam Recorder</h1>
 	<video bind:this={videoElement} autoplay class="w-full max-w-md h-auto border border-gray-300 rounded-lg">
 		<track kind="captions" src="webscam">
