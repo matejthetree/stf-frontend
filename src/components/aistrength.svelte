@@ -1,11 +1,12 @@
 <script lang="ts">
 	import { RangeSlider } from '@skeletonlabs/skeleton';
+	import { aiStrength } from '../store/ai-params.store';  // Import the shared store
 
-	let value = 100; // Declare the value variable
+	// Update the aiStrength store when the slider value changes
 </script>
 
-<RangeSlider bind:value={value} min={0} max={100} step={1} name="RangeSlider">
+<RangeSlider bind:value={$aiStrength} min={0} max={100} step={1} name="RangeSlider">
 	<span slot="trail">
-		<p>AI Strength: {value}</p>
+		<p>AI Strength: {$aiStrength}</p>
 	</span>
 </RangeSlider>

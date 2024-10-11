@@ -1,7 +1,7 @@
 <script>
-	import Screens  from '../components/screens.svelte';
-	import Prompt from '../components/prompt.svelte';
-	import StartStop from '../components/start-stop.svelte';
+	import Screens  from '../components/Screens.svelte';
+	import Prompt from '../components/Prompt.svelte';
+	import StartStop from '../components/StartStop.svelte';
 	import AIStrength from '../components/aistrength.svelte';
 </script>
 
