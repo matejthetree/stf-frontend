@@ -1,21 +1,19 @@
 <script lang="ts">
 	import { onDestroy } from 'svelte';
 	import { token } from '../store/recording-state.store';
+	import { aiStrength, prompt } from '../store/ai-params.store';
 
-	let fps = 1;
-
+	let fps = 0.2;
 	let videoElement: HTMLVideoElement | null = null;
 	let canvas: HTMLCanvasElement | null = null;
 	let intervalId: number | null = null;
 	const apiUrl = `http://localhost:5173/recorder/${token}/`;
 
-	// Reusable canvas for capturing frames
+	// Reusable canvas for capturing frames with fixed 512x512 size
 	function initializeCanvas() {
 		canvas = document.createElement('canvas');
-		if (videoElement) {
-			canvas.width = videoElement.videoWidth;
-			canvas.height = videoElement.videoHeight;
-		}
+		canvas.width = 512; // Set canvas width to 512 pixels
+		canvas.height = 512; // Set canvas height to 512 pixels
 	}
 
 	// Start the webcam stream
@@ -43,7 +41,7 @@
 		const context = canvas.getContext('2d');
 		if (!context) return;
 
-		// Draw the current video frame on the canvas
+		// Draw the current video frame on the canvas resized to 512x512
 		context.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
 
 		// Convert canvas to blob
@@ -51,6 +49,8 @@
 			if (blob) {
 				const formData = new FormData();
 				formData.append('frame', blob, 'frame.jpg');
+				formData.append('prompt', $prompt);  // Use prompt from store
+				formData.append('ais', $aiStrength.toString());  // Use aiStrength from store
 
 				try {
 					const response = await fetch(apiUrl, {
