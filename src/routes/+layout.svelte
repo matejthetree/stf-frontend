@@ -9,7 +9,7 @@
 		<!-- App Bar -->
 		<AppBar>
 			<svelte:fragment slot="lead">
-				<strong class="text-xl uppercase">Skeleton</strong>
+				<strong class="text-xl uppercase">STF Real-Time</strong>
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
 				<a
@@ -18,7 +18,7 @@
 					target="_blank"
 					rel="noreferrer"
 				>
-					Discord
+					Nvidia
 				</a>
 				<a
 					class="btn btn-sm variant-ghost-surface"
@@ -26,7 +26,7 @@
 					target="_blank"
 					rel="noreferrer"
 				>
-					Twitter
+					Microsoft
 				</a>
 				<a
 					class="btn btn-sm variant-ghost-surface"
@@ -34,7 +34,7 @@
 					target="_blank"
 					rel="noreferrer"
 				>
-					GitHub
+					Azure
 				</a>
 			</svelte:fragment>
 		</AppBar>
