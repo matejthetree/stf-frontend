@@ -16,7 +16,6 @@
 				}
 				sse = new EventSource(`/recorder/${token}`);
 				sse.onmessage = (event) => {
-					console.log('Received SSE:', event.data);
 					const data = JSON.parse(event.data);
 					processedImage = data.processedImage; // Update the image with SSE data
 				};
