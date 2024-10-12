@@ -1,6 +1,37 @@
 <script lang="ts">
 	import '../app.postcss';
 	import { AppShell, AppBar } from '@skeletonlabs/skeleton';
+
+	import { source } from 'sveltekit-sse';
+	import { aiStrength, promptC, subscribe, subscription } from '../store/ai-params.store';
+	import { imageC } from '../store/image.store';
+
+	const image = source('/api/sse').select('image').json();
+	const params = source('/api/sse').select('params').json();
+
+
+	params.subscribe((data) => {
+
+
+		if (data !== undefined && data !== null) {
+
+			aiStrength.set(data.lastAis);
+			promptC.set(data.lastPrompt);
+
+			if (!subscription) {
+				subscribe();
+			}
+		}
+
+
+	});
+
+	image.subscribe((data) => {
+		if (data) {
+			console.log('image data', data);
+			imageC.set(data.lastImg);
+		}
+	});
 </script>
 
 <!-- App Shell -->

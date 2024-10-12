@@ -1,45 +1,15 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import { token } from '../store/ai-params.store';
+	import { imageC } from '../store/image.store';
 
-	let processedImage: string | null = null;
+	$:{
+		console.log('image received', $imageC);
+	}
 
-	let sse: EventSource | null = null;
-
-	onMount(() => {
-
-
-		token.subscribe((token) => {
-
-			console.log('renderer token', token);
-			if (token != '') {
-				if (sse != null) {
-					sse.close();
-				}
-				sse = new EventSource(`/recorder/${token}`);
-				sse.onmessage = (event) => {
-					const data = JSON.parse(event.data);
-					processedImage = data.processedImage; // Update the image with SSE data
-				};
-
-				sse.onerror = () => {
-					console.error('SSE connection error');
-				};
-
-			}
-		});
-
-		return () => {
-			if (sse != null) {
-				sse.close();
-			}
-		};
-	});
 </script>
 
 <div class="flex flex-col items-center">
-	{#if processedImage}
-		<img src={`data:image/jpeg;base64,${processedImage}`} alt="Processed Webcam Frame"
+	{#if $imageC !== ''}
+		<img src={`data:image/jpeg;base64,${$imageC}`} alt="Processed Webcam Frame"
 				 class="max-w-full h-auto rounded-lg shadow-lg border border-gray-300" />
 	{:else}
 		<p class="text-gray-500">Waiting for processed image...</p>

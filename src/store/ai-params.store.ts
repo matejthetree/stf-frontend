@@ -1,29 +1,23 @@
 import { writable, get } from 'svelte/store';
 
-// Other existing imports...
-// is the webcam started
+// The existing stores...
 export const started = writable(false);
-
-//is the button pressed
 export const isRecording = writable(false);
+export const token = writable('default');
+export const aiStrength = writable(-1);
+export const promptC = writable('default prompt');
 
-//token
-export const token = writable("default");
-
-export const aiStrength = writable(0.8);
-export const prompt = writable("default prompt");
-
+export let subscription = false;
 // The callback that WebCam.svelte calls to record the frame
 export const recordFrame = writable<(blob: Blob) => void>(() => {});
 
 // This function handles sending frames to the API
 function sendFrameToApi(blob: Blob) {
-	const apiUrl = `http://localhost:5173/recorder/${get(token)}/`;
+	const apiUrl = `http://localhost:5173/recorder/image/`;
 
 	const formData = new FormData();
+	formData.append('token', get(token));
 	formData.append('frame', blob, 'frame.jpg');
-	formData.append('prompt', get(prompt));
-	formData.append('ais', get(aiStrength).toString());
 
 	fetch(apiUrl, {
 		method: 'POST',
@@ -37,13 +31,47 @@ function sendFrameToApi(blob: Blob) {
 		.catch(err => console.error('Error sending frame', err));
 }
 
-// Subscribe to the isRecording store and update the callback function
+// This function handles sending updated params (prompt, ais) to the API
+function sendParamsToApi() {
+	const apiUrl = `http://localhost:5173/recorder/params/`;
+
+	const formData = new FormData();
+	formData.append('token', get(token));
+	formData.append('prompt', get(promptC));
+	formData.append('ais', get(aiStrength).toString());
+
+	fetch(apiUrl, {
+		method: 'POST',
+		body: formData,
+	})
+		.then(response => {
+			if (!response.ok) {
+				console.error('Error sending params:', response.statusText);
+			}
+		})
+		.catch(err => console.error('Error sending params', err));
+}
+
+// Subscribe to isRecording and set the callback function
 isRecording.subscribe((recording) => {
 	if (recording) {
-		// If recording is active, set the recordFrame callback to send the frame to the API
 		recordFrame.set((blob: Blob) => sendFrameToApi(blob));
 	} else {
-		// If recording is not active, set the callback to a no-op function
 		recordFrame.set(() => {});
 	}
 });
+
+
+export function subscribe() {
+
+	subscription = true;
+	// // Subscribe to prompt and aiStrength and send updates to the API
+	// promptC.subscribe(() => {
+	// 	sendParamsToApi();
+	// });
+	//
+	// aiStrength.subscribe(() => {
+	// 	sendParamsToApi();
+	// });
+
+}

@@ -20,7 +20,20 @@
 	const resetComponent = () => {
 		started.set(false);
 		activeComponent.set('');
+		resetToken()
 	};
+
+	async function resetToken() {
+		const response = await fetch('/api/reset-token');
+		const data = await response.json();
+
+		if (response.ok) {
+			console.log(data);
+		} else {
+			console.error('Error reseting token:', data.error);
+		}
+	}
+
 </script>
 
 <div class="flex flex-wrap justify-center gap-4 lg:flex-nowrap">

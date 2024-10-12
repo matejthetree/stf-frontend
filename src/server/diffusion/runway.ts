@@ -1,12 +1,9 @@
 import type { DiffusionInterface } from './diffusion.interface';
 import {
-	EPreProcessorGroup,
 	type IEnhancedPrompt,
-	type IImageToText,
 	type ITextToImage,
 	RunwareServer
 } from '@runware/sdk-js';
-import { run } from 'node:test';
 
 class Runway implements DiffusionInterface {
 	runway = new RunwareServer({ apiKey: 'Jv5YwafgXDwSygDEb6OrGycH2qAvvL8l' });
@@ -22,21 +19,32 @@ class Runway implements DiffusionInterface {
 		//
 		// });
 
-		const positivePrompt = await this.enhancePrompt(
-			'beautiful, 4k, upscale, photorealism, ' + prompt
-		);
+		// const positivePrompt = await this.enhancePrompt(
+		// 	'beautiful, 4k, upscale, photorealism, ' + prompt
+		// );
+		const positivePrompt = '' + prompt;
+		console.log("processing prompt", positivePrompt);
 		const result: ITextToImage[] | undefined = await this.runway.requestImages({
 			outputType: 'base64Data',
 			positivePrompt: positivePrompt,
-			model: 'civitai:25694@143906',
+			model: 'civitai:618692@691639',
 			seedImage: image,
+			// negativePrompt:"bad quality, foggy, shady",
+			// controlNet: {
+			// 	model: 'runware:9@1',
+			// 	guideImage: image,
+			// },
+			lora:{
+				model:"civitai:786131@879110",
+				weight: 0.7
+			},
 			height: 512,
 			width: 512,
 			checkNsfw: true,
 			strength: ais
 		});
 
-		if (result) {
+		if (result && !result[0].NSFWContent) {
 			return result[0].imageBase64Data!;
 		} else {
 			console.log('no result');
