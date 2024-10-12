@@ -4,14 +4,24 @@
 	import Renderer from './Renderer.svelte';
 	import WebCam from './WebCam.svelte';
 	import { writable } from 'svelte/store';
+	import { started } from '../store/ai-params.store';
 
 	// Store to keep track of which component is active
 	let activeComponent = writable<'webcam' | 'qr' | ''>('');
 
 	// Handlers for button clicks
-	const showWebcam = () => activeComponent.set('webcam');
-	const showQRManager = () => activeComponent.set('qr');
-	const resetComponent = () => activeComponent.set('');
+	const showWebcam = () => {
+		started.set(true);
+		activeComponent.set('webcam');
+	};
+	const showQRManager = () => {
+		started.set(true)
+		activeComponent.set('qr');
+	};
+	const resetComponent = () => {
+		started.set(false);
+		activeComponent.set('');
+	};
 </script>
 
 <div class="flex flex-wrap justify-center gap-4 lg:flex-nowrap">
