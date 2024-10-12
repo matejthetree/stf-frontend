@@ -7,12 +7,26 @@
 	let canvas: HTMLCanvasElement | null = null;
 	let intervalId: number | null = null;
 	let fps = 1;  // Set your desired FPS
+	let isMobileDevice = false;
+
+	// Detect if the device is mobile
+	function detectMobileDevice() {
+		const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+		return /android|iPad|iPhone|iPod/i.test(userAgent); // Basic mobile device detection
+	}
 
 	// Start the webcam in the browser
 	async function startWebcam() {
 		if (typeof navigator !== 'undefined' && navigator.mediaDevices) {
 			try {
-				const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+				isMobileDevice = detectMobileDevice();
+
+				// Set video constraints based on whether it's a mobile device
+				const videoConstraints = isMobileDevice
+					? { facingMode: { exact: 'environment' } } // Back camera for mobile devices
+					: true; // Default to front camera for non-mobile
+
+				const stream = await navigator.mediaDevices.getUserMedia({ video: videoConstraints });
 				if (videoElement) {
 					videoElement.srcObject = stream;
 					await videoElement.play();
@@ -78,6 +92,6 @@
 
 <div class="w-[512px] h-[512px] flex items-center justify-center">
 	<video bind:this={videoElement} autoplay class="w-full h-full border border-gray-300 rounded-lg">
-		<track kind="captions" src="webscam">
+		<track kind="captions" src="webcam">
 	</video>
 </div>
