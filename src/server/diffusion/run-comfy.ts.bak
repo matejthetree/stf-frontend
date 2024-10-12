@@ -1,11 +1,8 @@
 import type { DiffusionInterface } from './diffusion.interface';
 import axios from 'axios';
 import FormData from 'form-data';
-import { promises as fs } from 'fs';
-import path from 'path';
 
 import { ComfyApi } from '@saintno/comfyui-sdk';
-import json from '../../../assets/comfy/lora-sd-1.5.json'
 
 const url = '/api/upload/image';
 

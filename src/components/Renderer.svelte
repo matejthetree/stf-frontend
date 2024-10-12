@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { token } from '../store/recording-state.store';
+	import { token } from '../store/ai-params.store';
 
 	let processedImage: string | null = null;
 
@@ -8,8 +8,10 @@
 
 	onMount(() => {
 
+
 		token.subscribe((token) => {
 
+			console.log('renderer token', token);
 			if (token != '') {
 				if (sse != null) {
 					sse.close();

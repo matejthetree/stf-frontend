@@ -5,7 +5,7 @@
 	// Update the aiStrength store when the slider value changes
 </script>
 
-<RangeSlider bind:value={$aiStrength} min={0} max={100} step={1} name="RangeSlider">
+<RangeSlider bind:value={$aiStrength} min={0} max={1} step={0.05} name="RangeSlider">
 	<span slot="trail">
 		<p>AI Strength: {$aiStrength}</p>
 	</span>

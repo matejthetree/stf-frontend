@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { Avatar } from '@skeletonlabs/skeleton';
 	import QRManager from './QRManager.svelte';
 	import Renderer from './Renderer.svelte';
 	import WebCam from './WebCam.svelte';

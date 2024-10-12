@@ -1,10 +1,16 @@
 import { writable, get } from 'svelte/store';
 
 // Other existing imports...
+// is the webcam started
 export const started = writable(false);
+
+//is the button pressed
 export const isRecording = writable(false);
+
+//token
 export const token = writable("default");
-export const aiStrength = writable(0.5);
+
+export const aiStrength = writable(0.8);
 export const prompt = writable("default prompt");
 
 // The callback that WebCam.svelte calls to record the frame

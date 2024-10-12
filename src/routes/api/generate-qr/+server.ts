@@ -1,6 +1,8 @@
-// @ts-ignore
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
 import { v4 as uuidv4 } from 'uuid'; // For unique token generation
-// @ts-ignore
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
 import QRCode from 'qrcode'; // To generate the QR code
 import { json } from '@sveltejs/kit';
 
@@ -14,7 +16,8 @@ function convertToBase64UrlSafe(uuid: string): string {
 }
 
 export async function GET() {
-	const token = uuidv4(); // Generate a unique token
+	const token = 'default'; // Generate a unique token
+	// const token = uuidv4(); // Generate a unique token
 	const tokenUrlSafe = convertToBase64UrlSafe(token); // Convert to URL-safe Base64
 
 	const url = `https://localhost:5173/recorder/${tokenUrlSafe}`; // Generate the URL for the QR code

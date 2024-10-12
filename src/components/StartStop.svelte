@@ -9,10 +9,12 @@
 </script>
 
 <div>
-	{#if !$isRecording}
-		<div></div>
+	{#if !$started}
+		<div>
+
+		</div>
 	{:else}
-		{#if $started}
+		{#if $isRecording}
 			<!-- Stop Button with red background -->
 			<button
 				type="button"
