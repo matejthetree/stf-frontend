@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onDestroy } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 	import { get } from 'svelte/store';
 	import { recordFrame } from '../store/ai-params.store';
 
@@ -8,21 +8,25 @@
 	let intervalId: number | null = null;
 	let fps = 1;  // Set your desired FPS
 
-	// Start the webcam immediately when the component mounts
+	// Start the webcam in the browser
 	async function startWebcam() {
-		try {
-			const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-			if (videoElement) {
-				videoElement.srcObject = stream;
-				await videoElement.play();
+		if (typeof navigator !== 'undefined' && navigator.mediaDevices) {
+			try {
+				const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+				if (videoElement) {
+					videoElement.srcObject = stream;
+					await videoElement.play();
 
-				initializeCanvas();
+					initializeCanvas();
 
-				// Start capturing frames
-				intervalId = window.setInterval(captureFrame, 1000 / fps);
+					// Start capturing frames
+					intervalId = window.setInterval(captureFrame, 1000 / fps);
+				}
+			} catch (err) {
+				console.error('Error accessing the webcam:', err);
 			}
-		} catch (err) {
-			console.error('Error accessing the webcam:', err);
+		} else {
+			console.error('navigator.mediaDevices is not available in this environment');
 		}
 	}
 
@@ -54,8 +58,10 @@
 		}, 'image/jpeg', 0.7); // Adjust image quality as needed
 	}
 
-	// Automatically start the webcam when the component mounts
-	startWebcam();
+	// Use onMount to ensure the code runs in the browser
+	onMount(() => {
+		startWebcam();
+	});
 
 	// Clean up when the component is destroyed
 	onDestroy(() => {
