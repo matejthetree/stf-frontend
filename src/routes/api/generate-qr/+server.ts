@@ -21,7 +21,7 @@ export async function GET() {
 	const token = uuidv4(); // Generate a unique token
 	const tokenUrlSafe = convertToBase64UrlSafe(token); // Convert to URL-safe Base64
 
-	const url = `https://localhost:5173/recorder/${tokenUrlSafe}`; // Generate the URL for the QR code
+	const url = `http://20.172.32.213:4173/recorder/${tokenUrlSafe}`; // Generate the URL for the QR code
 	updateToken(tokenUrlSafe)
 
 	try {
