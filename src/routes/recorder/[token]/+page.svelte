@@ -4,7 +4,6 @@
 	import Renderer from '../../../components/Renderer.svelte';
 	import { started, token } from '../../../store/ai-params.store';
 	import StartStop from '../../../components/StartStop.svelte';
-	import AIStrength from '../../../components/AIStrength.svelte';
 	import { writable } from 'svelte/store';
 
 	export let data: any; // Receive the token from load function as a prop
@@ -47,16 +46,15 @@
 <!-- The Recorder page layout -->
 {#if $isConnected}
 	<div class="flex flex-col items-start h-screen bg-gray-100">
-		<div class="items-stretch border border-gray-300 flex justify-center">
+		<div class="items-start border border-gray-300 flex justify-center">
 			<WebCam />
 		</div>
 
 		<div class="justify-items-stretch border border-gray-300 flex justify-center">
 			<Renderer />
+			<!-- Start/Stop button hovering on top in lower right -->
+			<StartStop  />
 		</div>
-
-		<AIStrength />
-		<StartStop />
 	</div>
 {:else}
 	<!-- Show this when disconnected -->
