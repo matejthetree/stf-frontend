@@ -4,8 +4,8 @@ import { writable, get } from 'svelte/store';
 export const started = writable(false);
 export const isRecording = writable(false);
 export const token = writable('default');
-export const aiStrength = writable(-1);
-export const promptC = writable('default prompt');
+export const aiStrength = writable(0.8);
+export const promptC = writable("Architecture, city, sunshine, day, urban landscape, skyscrapers, scenery, white clouds, buildings, bridges, sky, city lights, blue sky, east_ Asia_ Architecture, mountains, rivers, pagodas, outdoor, trees, tokyo_\\\\ (City )<lora:20_a:0.2>");
 
 export let subscription = false;
 // The callback that WebCam.svelte calls to record the frame

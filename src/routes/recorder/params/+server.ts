@@ -13,6 +13,7 @@ export async function POST({ request }) {
 	console.log("sending params to api", token, prompt, ais)
 
 	if (!verifyToken(token)) {
+		console.log("invalid tokens")
 		return json({ message: 'Invalid token' }, { status: 400 });
 	}
 

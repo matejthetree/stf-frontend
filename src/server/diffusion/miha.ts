@@ -47,6 +47,7 @@ class Miha implements DiffusionInterface {
 	}
 
 	async processParams(prompt: string, ais: number) :Promise<void> {
+		console.log('processing params', prompt, ais);
 		try {
 			// Example usage
 			const settings = {
