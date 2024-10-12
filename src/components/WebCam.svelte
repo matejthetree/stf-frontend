@@ -11,7 +11,7 @@
 
 	// Detect if the device is mobile
 	function detectMobileDevice() {
-		const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+		const userAgent = navigator.userAgent || navigator.vendor ;
 		return /android|iPad|iPhone|iPod/i.test(userAgent); // Basic mobile device detection
 	}
 
