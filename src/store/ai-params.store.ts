@@ -13,7 +13,7 @@ export const recordFrame = writable<(blob: Blob) => void>(() => {});
 
 // This function handles sending frames to the API
 function sendFrameToApi(blob: Blob) {
-	const apiUrl = `http://0.0.0.0:4173/recorder/image/`;
+	const apiUrl = `http://localhost:4173/recorder/image/`;
 
 	const formData = new FormData();
 	formData.append('token', get(token));
@@ -33,7 +33,7 @@ function sendFrameToApi(blob: Blob) {
 
 // This function handles sending updated params (prompt, ais) to the API
 function sendParamsToApi() {
-	const apiUrl = `http://0.0.0.0:4173/recorder/params/`;
+	const apiUrl = `http://localhost:4173/recorder/params/`;
 
 	const formData = new FormData();
 	formData.append('token', get(token));
