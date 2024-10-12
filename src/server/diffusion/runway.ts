@@ -6,6 +6,9 @@ import {
 } from '@runware/sdk-js';
 
 class Runway implements DiffusionInterface {
+	processParams(prompt: string, ais: number): Promise<void> {
+		throw new Error('Method not implemented.');
+	}
 	runway = new RunwareServer({ apiKey: 'Jv5YwafgXDwSygDEb6OrGycH2qAvvL8l' });
 
 	async processImage(prompt: string, image: string, ais: number): Promise<string> {
@@ -23,7 +26,7 @@ class Runway implements DiffusionInterface {
 		// 	'beautiful, 4k, upscale, photorealism, ' + prompt
 		// );
 		const positivePrompt = '' + prompt;
-		console.log("processing prompt", positivePrompt);
+		console.log('processing prompt', positivePrompt);
 		const result: ITextToImage[] | undefined = await this.runway.requestImages({
 			outputType: 'base64Data',
 			positivePrompt: positivePrompt,
@@ -35,8 +38,8 @@ class Runway implements DiffusionInterface {
 			// 	model: 'runware:9@1',
 			// 	guideImage: image,
 			// },
-			lora:{
-				model:"civitai:786131@879110",
+			lora: {
+				model: 'civitai:786131@879110',
 				weight: 0.7
 			},
 			height: 512,
