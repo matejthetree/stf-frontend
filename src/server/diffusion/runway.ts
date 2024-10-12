@@ -29,6 +29,7 @@ class Runway implements DiffusionInterface {
 			positivePrompt: positivePrompt,
 			model: 'civitai:618692@691639',
 			seedImage: image,
+
 			// negativePrompt:"bad quality, foggy, shady",
 			// controlNet: {
 			// 	model: 'runware:9@1',
@@ -40,7 +41,6 @@ class Runway implements DiffusionInterface {
 			},
 			height: 512,
 			width: 512,
-			checkNsfw: true,
 			strength: ais
 		});
 
