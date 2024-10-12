@@ -7,10 +7,6 @@ export let lastAis = 0.8;
 
 export async function processImage(base64Image: string): Promise<string | false> {
 	console.log('Processing image...', lastAis, lastPrompt);
-	if (base64Image == lastImgPrompt) {
-		console.log('not processing the same image');
-		return false;
-	}
 	lastImgPrompt = base64Image;
 	if (base64Image == '') {
 		console.log('setting empty image', lastImg);
