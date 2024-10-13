@@ -47,7 +47,7 @@
 {#if $isConnected}
 	<div class="relative" style="height: calc(100vh - 64px); width: 100vw;">
 		<!-- Renderer takes full space minus navbar -->
-		<div class="h-full w-full flex items-center justify-center bg-green-200">
+		<div class="h-full w-full flex items-center justify-center">
 			<div class="max-w-full max-h-full">
 				<Renderer />
 			</div>

@@ -52,10 +52,11 @@ class Miha implements DiffusionInterface {
 			// Example usage
 			const settings = {
 				prompt: prompt,
+				negative_prompt: "human, body, face, low quality, medium quality, ",
 				seed: 12345,
 				inference_steps: 6,
 				noise_strength: 0.5,
-				conditioning_scale: ais
+				conditioning_scale: 1-ais*0.99
 			};
 
 			const response = await axios.post('http://20.172.32.213:8080/settings', settings, {

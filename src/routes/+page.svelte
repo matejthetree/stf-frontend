@@ -5,57 +5,75 @@
 	import StartStop from '../components/StartStop.svelte';
 	import AIStrength from '../components/AIStrength.svelte';
 	import { writable } from 'svelte/store';
+	import { aiStrength, promptC, sendParamsToApi } from '../store/ai-params.store';
 
-	// Password to access the page
-	const correctPassword = "nvidiaxmicrosoft";
-
-	// Store to track if the user is authenticated
+	const correctPassword = 'nvidiaxmicrosoft';
 	let isAuthenticated = writable(false);
+	let inputPassword = '';
+	let ready = false;
 
-	// Store for the input password field
-	let inputPassword = "";
+	let timeoutId: any = null;
 
-	// On component mount, check if the correct password is already in localStorage
+	// Check if the correct password is already stored in localStorage
 	onMount(() => {
+		ready = true;
 		const savedPassword = localStorage.getItem('password');
 		if (savedPassword === correctPassword) {
 			isAuthenticated.set(true);
 		}
 	});
 
-	// Function to handle password submission
+	// Handle password submission
 	function submitPassword() {
 		if (inputPassword === correctPassword) {
 			isAuthenticated.set(true);
-			localStorage.setItem('password', inputPassword); // Save the correct password in localStorage
+			localStorage.setItem('password', inputPassword); // Save password
 		} else {
-			alert("Incorrect password. Please try again.");
+			alert('Incorrect password. Please try again.');
+		}
+	}
+
+	$: {
+		if (ready) {
+			if (timeoutId) {
+				clearTimeout(timeoutId);
+			}
+			timeoutId = setTimeout(() => {
+				console.log($promptC, $aiStrength);
+				sendParamsToApi();
+			}, 1000); // 1-second debounce delay
 		}
 	}
 </script>
 
 {#if $isAuthenticated}
 	<!-- Show the content if the user is authenticated -->
-	<Screens></Screens>
-	<!-- Prompt Component Below the Boxes -->
-	<div class="w-8/12 mx-auto p-8">
-		<Prompt />
-	</div>
-
-	<!-- Slider and Start/Stop Button Layout -->
-	<div class="flex justify-between items-center mt-4 p-6">
-		<!-- Slider on the left -->
-		<div class="w-4/5">
-			<AIStrength></AIStrength>
+	<div class="flex flex-col h-screen p-4" >
+		<!-- Screens component takes some space at the top -->
+		<div class="flex-none h-[80%]">
+			<Screens />
 		</div>
 
-		<!-- Start/Stop Buttons on the right -->
+		<!-- Prompt component takes some space below the screens -->
+		<div class="flex-none w-4/5 mx-auto p-4">
+			<Prompt />
+		</div>
+
+		<!-- Remaining space taken by the slider and buttons -->
+		<div class="flex-none w-4/5 mx-auto p-4">
+			<!-- Slider on the left -->
+			<AIStrength />
+
+			<!-- Start/Stop button at the bottom-right corner -->
+		</div>
+
 		<div class="absolute bottom-6 right-6">
-			<StartStop></StartStop>
+			<StartStop />
 		</div>
+
 	</div>
 {:else}
-	<!-- Show the password prompt if the user is not authenticated -->
+	<!-- Password prompt if not authenticated -->
 	<div class="flex justify-center items-center h-screen">
 		<div class="w-1/3 bg-white p-6 rounded shadow-lg">
 			<h2 class="text-2xl font-bold mb-4">Enter Password</h2>
