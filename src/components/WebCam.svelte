@@ -24,9 +24,21 @@
 				isMobileDevice = detectMobileDevice();
 
 				// Set video constraints based on whether it's a mobile device
-				const videoConstraints = isMobileDevice
-					? { facingMode: { ideal: 'environment' }, width: canvasWidth, height: canvasHeight } // Back camera for mobile devices
-					: { width: canvasWidth, height: canvasHeight }; // Set the desired resolution for non-mobile
+				let videoConstraints;
+				if (isMobileDevice) {
+					// Flexible constraints for iOS compatibility
+					videoConstraints = {
+						facingMode: { ideal: 'environment' }, // Use "ideal" instead of "exact" for iOS compatibility
+						width: { ideal: canvasWidth },
+						height: { ideal: canvasHeight }
+					};
+				} else {
+					// Constraints for non-mobile devices
+					videoConstraints = {
+						width: canvasWidth,
+						height: canvasHeight
+					};
+				}
 
 				const stream = await navigator.mediaDevices.getUserMedia({ video: videoConstraints });
 				if (videoElement) {
@@ -40,6 +52,14 @@
 				}
 			} catch (err) {
 				console.error('Error accessing the webcam:', err);
+				// Provide user-friendly error messages for iOS
+				if (err.name === 'NotAllowedError') {
+					alert('Camera access is denied. Please allow camera permissions.');
+				} else if (err.name === 'NotFoundError') {
+					alert('No camera found.');
+				} else {
+					alert('Error accessing the camera.');
+				}
 			}
 		} else {
 			console.error('navigator.mediaDevices is not available in this environment');
@@ -112,6 +132,6 @@
 </script>
 
 <!-- Displaying Webcam with cropped frame on the screen (512x768) -->
-<video bind:this={videoElement} autoplay class="w-auto h-auto border border-gray-300 rounded-lg ">
+<video bind:this={videoElement} autoplay playsinline class="w-auto h-auto border border-gray-300 rounded-lg">
 	<track kind="captions" src="webcam">
 </video>
