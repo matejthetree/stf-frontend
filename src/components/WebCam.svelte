@@ -8,10 +8,12 @@
 	let intervalId: number | null = null;
 	let fps = 1;  // Set your desired FPS
 	let isMobileDevice = false;
+	let canvasWidth = 512;
+	let canvasHeight = 768;
 
 	// Detect if the device is mobile
 	function detectMobileDevice() {
-		const userAgent = navigator.userAgent || navigator.vendor ;
+		const userAgent = navigator.userAgent || navigator.vendor;
 		return /android|iPad|iPhone|iPod/i.test(userAgent); // Basic mobile device detection
 	}
 
@@ -23,8 +25,8 @@
 
 				// Set video constraints based on whether it's a mobile device
 				const videoConstraints = isMobileDevice
-					? { facingMode: { exact: 'environment' } } // Back camera for mobile devices
-					: true; // Default to front camera for non-mobile
+					? { facingMode: { exact: 'environment' }, width: canvasWidth, height: canvasHeight } // Back camera for mobile devices
+					: { width: canvasWidth, height: canvasHeight }; // Set the desired resolution for non-mobile
 
 				const stream = await navigator.mediaDevices.getUserMedia({ video: videoConstraints });
 				if (videoElement) {
@@ -44,11 +46,11 @@
 		}
 	}
 
-	// Initialize the canvas with a fixed size
+	// Initialize the canvas with a fixed size (512x768)
 	function initializeCanvas() {
 		canvas = document.createElement('canvas');
-		canvas.width = 512;
-		canvas.height = 512;
+		canvas.width = canvasWidth;
+		canvas.height = canvasHeight;
 	}
 
 	// Capture the frame and send to store if recording is active
@@ -58,8 +60,27 @@
 		const context = canvas.getContext('2d');
 		if (!context) return;
 
-		// Draw the video frame onto the canvas
-		context.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+		// Fit the video frame into the 512x768 canvas, maintaining aspect ratio
+		const videoAspectRatio = videoElement.videoWidth / videoElement.videoHeight;
+		const canvasAspectRatio = canvasWidth / canvasHeight;
+
+		let sx, sy, sWidth, sHeight;
+		if (videoAspectRatio > canvasAspectRatio) {
+			// Video is wider than canvas aspect ratio, crop the sides
+			sHeight = videoElement.videoHeight;
+			sWidth = sHeight * canvasAspectRatio;
+			sx = (videoElement.videoWidth - sWidth) / 2;
+			sy = 0;
+		} else {
+			// Video is taller than canvas aspect ratio, crop the top and bottom
+			sWidth = videoElement.videoWidth;
+			sHeight = sWidth / canvasAspectRatio;
+			sx = 0;
+			sy = (videoElement.videoHeight - sHeight) / 2;
+		}
+
+		// Draw the cropped video frame onto the canvas
+		context.drawImage(videoElement, sx, sy, sWidth, sHeight, 0, 0, canvas.width, canvas.height);
 
 		// Convert the canvas to a blob (image)
 		canvas.toBlob(async (blob) => {
@@ -90,8 +111,7 @@
 	});
 </script>
 
-<div class="w-[512px] h-[512px] flex items-center justify-center">
-	<video bind:this={videoElement} autoplay class="w-full h-full border border-gray-300 rounded-lg">
-		<track kind="captions" src="webcam">
-	</video>
-</div>
+<!-- Displaying Webcam with cropped frame on the screen (512x768) -->
+<video bind:this={videoElement} autoplay class="w-auto h-auto border border-gray-300 rounded-lg ">
+	<track kind="captions" src="webcam">
+</video>

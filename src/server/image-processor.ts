@@ -24,7 +24,7 @@ export async function updateParams(prompt: string, ais: number) {
 
 	await diffusion.processParams(prompt, ais);
 
-	if (lastImg != '') {
-		return processImage(lastImg);
+	if (lastImgPrompt != '') {
+		return processImage(lastImgPrompt);
 	}
 }

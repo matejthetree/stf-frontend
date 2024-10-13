@@ -43,17 +43,24 @@
 	});
 </script>
 
-<!-- The Recorder page layout -->
+<!-- Recorder Layout -->
 {#if $isConnected}
-	<div class="flex flex-col items-start h-screen bg-gray-100">
-		<div class="items-start border border-gray-300 flex justify-center">
+	<div class="relative" style="height: calc(100vh - 64px); width: 100vw;">
+		<!-- Renderer takes full space minus navbar -->
+		<div class="h-full w-full flex items-center justify-center bg-green-200">
+			<div class="max-w-full max-h-full">
+				<Renderer />
+			</div>
+		</div>
+
+		<!-- Webcam hovering in the top right -->
+		<div class="absolute top-4 right-4 w-1/4 aspect-auto">
 			<WebCam />
 		</div>
 
-		<div class="justify-items-stretch border border-gray-300 flex justify-center">
-			<Renderer />
-			<!-- Start/Stop button hovering on top in lower right -->
-			<StartStop  />
+		<!-- Start/Stop button hovering in the bottom right -->
+		<div class="absolute bottom-4 right-4">
+			<StartStop />
 		</div>
 	</div>
 {:else}

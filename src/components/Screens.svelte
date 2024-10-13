@@ -38,7 +38,7 @@
 
 <div class="flex flex-wrap justify-center gap-4 lg:flex-nowrap">
 	<!-- Left Box with Buttons or Components -->
-	<div class="w-[512px] h-[512px] border border-gray-300 relative flex flex-col items-center justify-center gap-4">
+	<div class="w-[512px] h-[768x] border border-gray-300 relative flex flex-col items-center justify-center gap-4">
 		{#if $activeComponent === 'webcam'}
 			<WebCam />
 			<!-- X button overlay to reset state -->
@@ -70,7 +70,7 @@
 	</div>
 
 	<!-- Right Box with Renderer -->
-	<div class="w-[512px] h-[512px] border border-gray-300 flex items-center justify-center">
+	<div class="w-[512px] h-[768px] border border-gray-300 flex items-center justify-center">
 		<Renderer />
 	</div>
 </div>

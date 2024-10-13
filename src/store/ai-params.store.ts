@@ -6,8 +6,8 @@ export const isRecording = writable(false);
 export const token = writable('default');
 export const aiStrength = writable(0.8);
 export const promptC = writable("Architecture, city, sunshine, day, urban landscape, skyscrapers, scenery, white clouds, buildings, bridges, sky, city lights, blue sky, east_ Asia_ Architecture, mountains, rivers, pagodas, outdoor, trees, tokyo_\\\\ (City )<lora:20_a:0.2>");
+export const promptEditing = writable(false);  // Tracks if the prompt is active (focused)
 
-export let subscription = false;
 // The callback that WebCam.svelte calls to record the frame
 export const recordFrame = writable<(blob: Blob) => void>(() => {});
 
@@ -33,7 +33,7 @@ function sendFrameToApi(blob: Blob) {
 
 // This function handles sending updated params (prompt, ais) to the API
 function sendParamsToApi() {
-	const apiUrl = `recorder/params/`;
+	const apiUrl = `/recorder/params/`;
 
 	const formData = new FormData();
 	formData.append('token', get(token));
@@ -62,16 +62,3 @@ isRecording.subscribe((recording) => {
 });
 
 
-export function subscribe() {
-
-	subscription = true;
-	// // Subscribe to prompt and aiStrength and send updates to the API
-	promptC.subscribe(() => {
-		sendParamsToApi();
-	});
-	//
-	aiStrength.subscribe(() => {
-		sendParamsToApi();
-	});
-
-}

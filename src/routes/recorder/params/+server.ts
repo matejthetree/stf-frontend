@@ -17,7 +17,7 @@ export async function POST({ request }) {
 		return json({ message: 'Invalid token' }, { status: 400 });
 	}
 
-	console.log('record received', prompt, ais);
+	console.log('params update received', prompt, ais);
 	if (!ais && !prompt) {
 		return json({ message: 'No params received' }, { status: 400 });
 	}

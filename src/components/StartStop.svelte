@@ -30,7 +30,7 @@
 				class="absolute bottom-4 right-4 btn-icon btn-icon-xl variant-filled border-green-500 border-8"
 				on:click={toggleStartStop}
 			>
-				|>
+				REC
 			</button>
 		{/if}	{/if}
 </div>
