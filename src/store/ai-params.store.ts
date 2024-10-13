@@ -14,7 +14,7 @@ export const recordFrame = writable<(blob: Blob) => void>(() => {});
 
 // This function handles sending frames to the API
 function sendFrameToApi(blob: Blob) {
-	const apiUrl = `recorder/image/`;
+	const apiUrl = `/recorder/image/`;
 
 	const formData = new FormData();
 	formData.append('token', get(token));
