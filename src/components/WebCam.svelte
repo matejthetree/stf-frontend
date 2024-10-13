@@ -25,7 +25,7 @@
 
 				// Set video constraints based on whether it's a mobile device
 				const videoConstraints = isMobileDevice
-					? { facingMode: { exact: 'environment' }, width: canvasWidth, height: canvasHeight } // Back camera for mobile devices
+					? { facingMode: { ideal: 'environment' }, width: canvasWidth, height: canvasHeight } // Back camera for mobile devices
 					: { width: canvasWidth, height: canvasHeight }; // Set the desired resolution for non-mobile
 
 				const stream = await navigator.mediaDevices.getUserMedia({ video: videoConstraints });
