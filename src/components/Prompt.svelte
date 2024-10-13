@@ -25,7 +25,7 @@
 		class="w-full p-4 border border-gray-300 rounded text-black"
 		placeholder={placeholder}
 		bind:value={$promptC}
-		rows="3"
+		rows="2"
 		on:focus={handleFocus}
 		on:focusout={handleFocusOut}
 	></textarea>

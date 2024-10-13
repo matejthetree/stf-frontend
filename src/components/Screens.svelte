@@ -14,7 +14,6 @@
 		activeComponent.set('webcam');
 	};
 	const showQRManager = () => {
-		started.set(true)
 		activeComponent.set('qr');
 	};
 	const resetComponent = () => {

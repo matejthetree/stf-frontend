@@ -55,12 +55,12 @@
 		</div>
 
 		<!-- Prompt component takes some space below the screens -->
-		<div class="flex-none w-4/5 mx-auto p-4">
+		<div class="flex-none w-4/5 mx-auto ">
 			<Prompt />
 		</div>
 
 		<!-- Remaining space taken by the slider and buttons -->
-		<div class="flex-none w-4/5 mx-auto p-4">
+		<div class="flex-none w-4/5 mx-auto ">
 			<!-- Slider on the left -->
 			<AIStrength />
 
