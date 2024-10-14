@@ -50,7 +50,7 @@
 	<!-- Show the content if the user is authenticated -->
 	<div class="flex flex-col h-screen" >
 		<!-- Screens component takes some space at the top -->
-		<div class="flex-none h-[80%]">
+		<div class="flex-shrink p-6">
 			<Screens />
 		</div>
 
