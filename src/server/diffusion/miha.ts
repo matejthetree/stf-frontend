@@ -54,7 +54,7 @@ class Miha implements DiffusionInterface {
 				prompt: prompt,
 				negative_prompt: "human, body, face, low quality, medium quality, nudity, nsfw, naked, porn, person ",
 				seed: 12345,
-				inference_steps: 6,
+				inference_steps: 8,
 				noise_strength: 0.5,
 				conditioning_scale: 1-ais*0.99
 			};
