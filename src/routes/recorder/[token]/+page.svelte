@@ -7,10 +7,10 @@
 	import { writable } from 'svelte/store';
 	import { RangeSlider } from '@skeletonlabs/skeleton';
 	import AIStrength from '../../../components/AIStrength.svelte';
+	import { isConnectedTokenValid } from '../../../store/token.store';
 
 	export let data: any; // Receive the token from load function as a prop
 
-	let isConnected = writable(true);  // To track connection status
 
 	// Set the token and start the recording
 	token.set(data.token);
@@ -26,11 +26,11 @@
 
 			const result = await response.json();
 			if (!result.valid) {
-				isConnected.set(false);  // Mark as disconnected if the token is not valid
+				isConnectedTokenValid.set(false);  // Mark as disconnected if the token is not valid
 			}
 		} catch (error) {
 			console.error('Error verifying token:', error);
-			isConnected.set(false);  // Assume disconnected if there is an error
+			isConnectedTokenValid.set(false);  // Assume disconnected if there is an error
 		}
 	}
 
@@ -46,7 +46,7 @@
 </script>
 
 <!-- Recorder Layout -->
-{#if $isConnected}
+{#if $isConnectedTokenValid}
 	<div class="relative" style="height: calc(100vh - 64px); width: 100vw;">
 		<!-- Renderer takes full space minus navbar -->
 		<div class="h-full w-full flex flex-col items-start">

@@ -8,7 +8,7 @@ export function load({ params }) {
 		if (verifyToken(token)) {
 			return { token };
 		}
-		return error(400, 'Wrong token');
+		return error(404, 'Wrong token');
 	} else {
 		return error(404, 'Not found');
 	}

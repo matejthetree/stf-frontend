@@ -2,12 +2,12 @@ import { diffusion } from './diffusion/miha';
 
 export let lastPrompt = `Archtiecture, iron, glass, wood`;
 export let lastImg = '';
-let lastImgPrompt = '';
+export let lastImgP = '';
 export let lastAis = 0.8;
 
 export async function processImage(base64Image: string): Promise<string | false> {
 	console.log('Processing image...', lastAis, lastPrompt);
-	lastImgPrompt = base64Image;
+	lastImgP = base64Image;
 	if (base64Image == '') {
 		console.log('setting empty image', lastImg);
 		return false;
@@ -24,7 +24,7 @@ export async function updateParams(prompt: string, ais: number) {
 
 	await diffusion.processParams(prompt, ais);
 
-	if (lastImgPrompt != '') {
-		return processImage(lastImgPrompt);
+	if (lastImgP != '') {
+		return processImage(lastImgP);
 	}
 }

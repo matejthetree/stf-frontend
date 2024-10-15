@@ -4,13 +4,14 @@
 
 	import { source } from 'sveltekit-sse';
 	import { aiStrength, promptC, promptEditing } from '../store/ai-params.store';
-	import { imageC } from '../store/image.store';
+	import { imageC, imageP } from '../store/image.store';
 
-	const image = source('/api/sse').select('image').json();
-	const params = source('/api/sse').select('params').json();
+	const imageSubscription = source('/api/sse').select('image').json();
+	const imagePromptSubscription = source('/api/sse').select('imageP').json();
+	const paramsSubscription = source('/api/sse').select('params').json();
 
 
-	params.subscribe((data) => {
+	paramsSubscription.subscribe((data) => {
 
 
 		if (data !== undefined && data !== null) {
@@ -24,10 +25,16 @@
 
 	});
 
-	image.subscribe((data) => {
+	imageSubscription.subscribe((data) => {
 		if (data) {
 			console.log('image data', data);
 			imageC.set(data.lastImg);
+		}
+	});
+	imagePromptSubscription.subscribe((data) => {
+		if (data) {
+			console.log('image data', data);
+			imageP.set(data.lastImgP);
 		}
 	});
 </script>

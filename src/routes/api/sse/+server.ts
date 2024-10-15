@@ -1,10 +1,6 @@
 // src/routes/custom-event/+server.js
 import { produce } from 'sveltekit-sse';
-import {
-	lastAis,
-	lastImg,
-	lastPrompt,
-} from '../../../server/image-processor';
+import { lastAis, lastImg, lastImgP, lastPrompt } from '../../../server/image-processor';
 
 /**
  * @param {number} milliseconds
@@ -20,7 +16,8 @@ export function POST() {
 	return produce(async function start({ emit }) {
 		let prevAis,
 			prevPrompt,
-			prevImage = null;
+			prevImage = null,
+			prevPImage = null;
 
 		while (true) {
 			if (prevAis != lastAis || prevPrompt != lastPrompt) {
@@ -37,6 +34,15 @@ export function POST() {
 				prevImage = lastImg;
 				console.log('emit img');
 				const { error: error2 } = emit('image', JSON.stringify({ lastImg }));
+				if (error2) {
+					console.error(error2);
+					return;
+				}
+			}
+			if (prevPImage != lastImgP) {
+				prevPImage = lastImgP;
+				console.log('emit img param', lastImgP.substring(0, 10));
+				const { error: error2 } = emit('imageP', JSON.stringify({ lastImgP }));
 				if (error2) {
 					console.error(error2);
 					return;

@@ -133,6 +133,6 @@
 </script>
 
 <!-- Displaying Webcam with cropped frame on the screen (512x768) -->
-<video bind:this={videoElement} autoplay playsinline class="w-auto h-auto border border-gray-300 rounded-lg">
+<video bind:this={videoElement} autoplay playsinline class="h-[240px] w-[160px] border border-gray-300 rounded-lg">
 	<track kind="captions" src="webcam">
 </video>

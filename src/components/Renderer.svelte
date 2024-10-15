@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { imageC } from '../store/image.store';
 
-	$: {
-		console.log('image received', $imageC);
-	}
+		$: {
+			console.log('image received', $imageC.substring(0,10));
+		}
 
 
 </script>
