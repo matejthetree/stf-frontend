@@ -51,7 +51,7 @@ class Miha implements DiffusionInterface {
 		try {
 			// Example usage
 			const settings = {
-				prompt: prompt,
+				prompt: 'architecture' + prompt,
 				negative_prompt: "human, body, face, low quality, medium quality, nudity, nsfw, naked, porn, person ",
 				seed: 12345,
 				inference_steps: 8,
