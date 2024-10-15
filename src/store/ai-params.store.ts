@@ -12,8 +12,10 @@ export const promptEditing = writable(false);  // Tracks if the prompt is active
 // The callback that WebCam.svelte calls to record the frame
 export const recordFrame = writable<(blob: Blob) => void>(() => {});
 
+let previousFrame: Blob | null = null;
 // This function handles sending frames to the API
 function sendFrameToApi(blob: Blob) {
+	previousFrame = blob;
 	const apiUrl = `/recorder/image/`;
 
 	const formData = new FormData();
@@ -58,6 +60,10 @@ isRecording.subscribe((recording) => {
 	if (recording) {
 		recordFrame.set((blob: Blob) => sendFrameToApi(blob));
 	} else {
+		if (previousFrame) {
+			console.log("sending last frame")
+			sendFrameToApi(previousFrame);
+		}
 		recordFrame.set(() => {});
 	}
 });

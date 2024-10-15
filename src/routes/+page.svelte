@@ -6,6 +6,7 @@
 	import AIStrength from '../components/AIStrength.svelte';
 	import { writable } from 'svelte/store';
 	import { aiStrength, promptC, sendParamsToApi } from '../store/ai-params.store';
+	import FSButton from '../components/FSButton.svelte';
 
 	const correctPassword = 'nvidiaxmicrosoft';
 	let isAuthenticated = writable(false);
@@ -47,13 +48,6 @@
 	}
 
 	// Function to trigger fullscreen mode
-	function goFullScreen() {
-		if (imgElement) {
-			if (imgElement.requestFullscreen) {
-				imgElement.requestFullscreen();
-			}
-		}
-	}
 </script>
 
 {#if $isAuthenticated}
@@ -81,11 +75,9 @@
 			<StartStop />
 		</div>
 
+		<FSButton></FSButton>
 
 	</div>
-	<button on:click={goFullScreen} class="absolute top-4 right-4 bg-blue-500 text-white p-2 rounded-lg">
-		Full Screen
-	</button>
 
 {:else}
 	<!-- Password prompt if not authenticated -->

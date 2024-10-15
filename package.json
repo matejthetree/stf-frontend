@@ -39,11 +39,13 @@
   },
   "type": "module",
   "dependencies": {
+    "@fortawesome/free-solid-svg-icons": "^6.6.0",
     "@runware/sdk-js": "^1.1.18",
     "@saintno/comfyui-sdk": "^0.2.25",
     "axios": "^1.7.7",
     "form-data": "^4.0.1",
     "qrcode": "^1.5.4",
+    "svelte-fa": "^4.0.3",
     "uuid": "^10.0.0"
   }
 }

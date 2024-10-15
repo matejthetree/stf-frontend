@@ -5,6 +5,7 @@
 	// Function to toggle start/stop state
 	function toggleStartStop() {
 		isRecording.set(!get(isRecording));  // Toggle between true and false
+
 	}
 </script>
 

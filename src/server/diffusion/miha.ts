@@ -52,7 +52,7 @@ class Miha implements DiffusionInterface {
 			// Example usage
 			const settings = {
 				prompt: prompt,
-				negative_prompt: "human, body, face, low quality, medium quality, nudity, nsfw, naked ",
+				negative_prompt: "human, body, face, low quality, medium quality, nudity, nsfw, naked, porn, person ",
 				seed: 12345,
 				inference_steps: 6,
 				noise_strength: 0.5,

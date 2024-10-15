@@ -6,7 +6,7 @@
 	let videoElement: HTMLVideoElement | null = null;
 	let canvas: HTMLCanvasElement | null = null;
 	let intervalId: number | null = null;
-	let fps = 1;  // Set your desired FPS
+	let fps = 0.5;  // Set your desired FPS
 	let isMobileDevice = false;
 	let canvasWidth = 512;
 	let canvasHeight = 768;
