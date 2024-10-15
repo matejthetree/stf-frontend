@@ -62,7 +62,7 @@
 <div class="flex flex-col items-center justify-center ">
 
 	{#if $qrCodeDataUrl}
-		{#if $lastVerification}
+		{#if $lastVerification && $imageP !== ''}
 			<img src={`data:image/jpeg;base64,${$imageP}`} alt="Processed Webcam Frame"
 					 class="rounded-lg shadow-lg border border-gray-300" />
 
