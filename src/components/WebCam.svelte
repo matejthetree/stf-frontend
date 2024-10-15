@@ -29,6 +29,7 @@
 					// Flexible constraints for iOS compatibility
 					videoConstraints = {
 						facingMode: { ideal: 'environment' }, // Use "ideal" instead of "exact" for iOS compatibility
+						aspectRatio: 512 / 768, // Portrait aspect ratio
 						width: { ideal: canvasWidth },
 						height: { ideal: canvasHeight }
 					};
