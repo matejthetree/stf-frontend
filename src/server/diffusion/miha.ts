@@ -56,7 +56,7 @@ class Miha implements DiffusionInterface {
 				seed: 12345,
 				inference_steps: 8,
 				noise_strength: 0.5,
-				conditioning_scale: 1-ais*0.99
+				conditioning_scale: 0.95-ais*0.9
 			};
 
 			const response = await axios.post('http://20.172.32.213:8080/settings', settings, {

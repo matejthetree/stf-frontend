@@ -55,9 +55,9 @@
 			</div>
 		</div>
 
-		<div class="absolute bottom-1 w-3/4 px-4">
+		<div class="absolute bottom-5 w-3/4 px-4">
 
-			<AIStrength/>
+			<AIStrength />
 		</div>
 
 		<!-- Webcam hovering in the top right -->
@@ -66,7 +66,9 @@
 		</div>
 
 		<!-- Start/Stop button hovering in the bottom right -->
+		<div class="absolute bottom-4">
 			<StartStop />
+		</div>
 	</div>
 {:else}
 	<!-- Show this when disconnected -->
