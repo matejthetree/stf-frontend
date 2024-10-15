@@ -5,6 +5,8 @@
 	import { started, token } from '../../../store/ai-params.store';
 	import StartStop from '../../../components/StartStop.svelte';
 	import { writable } from 'svelte/store';
+	import { RangeSlider } from '@skeletonlabs/skeleton';
+	import AIStrength from '../../../components/AIStrength.svelte';
 
 	export let data: any; // Receive the token from load function as a prop
 
@@ -47,21 +49,24 @@
 {#if $isConnected}
 	<div class="relative" style="height: calc(100vh - 64px); width: 100vw;">
 		<!-- Renderer takes full space minus navbar -->
-		<div class="h-full w-full flex items-center justify-center">
+		<div class="h-full w-full flex flex-col items-start">
 			<div class="max-w-full max-h-full">
 				<Renderer />
 			</div>
 		</div>
 
+		<div class="absolute bottom-1 w-3/4 px-4">
+
+			<AIStrength/>
+		</div>
+
 		<!-- Webcam hovering in the top right -->
-		<div class="absolute top-4 right-4 w-1/4 aspect-auto">
+		<div class="absolute top-4 right-4 h-[260px] w-[160px]">
 			<WebCam />
 		</div>
 
 		<!-- Start/Stop button hovering in the bottom right -->
-		<div class="absolute bottom-4 right-4">
 			<StartStop />
-		</div>
 	</div>
 {:else}
 	<!-- Show this when disconnected -->

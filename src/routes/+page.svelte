@@ -13,6 +13,7 @@
 	let ready = false;
 
 	let timeoutId: any = null;
+	let imgElement: HTMLDivElement | null = null;
 
 	// Check if the correct password is already stored in localStorage
 	onMount(() => {
@@ -44,13 +45,22 @@
 			}, 1000); // 1-second debounce delay
 		}
 	}
+
+	// Function to trigger fullscreen mode
+	function goFullScreen() {
+		if (imgElement) {
+			if (imgElement.requestFullscreen) {
+				imgElement.requestFullscreen();
+			}
+		}
+	}
 </script>
 
 {#if $isAuthenticated}
 	<!-- Show the content if the user is authenticated -->
-	<div class="flex flex-col h-screen" >
+	<div class="flex flex-col h-screen"  bind:this={imgElement}>
 		<!-- Screens component takes some space at the top -->
-		<div class="flex-shrink p-6">
+		<div class="flex-initial p-6">
 			<Screens />
 		</div>
 
@@ -71,7 +81,12 @@
 			<StartStop />
 		</div>
 
+
 	</div>
+	<button on:click={goFullScreen} class="absolute top-4 right-4 bg-blue-500 text-white p-2 rounded-lg">
+		Full Screen
+	</button>
+
 {:else}
 	<!-- Password prompt if not authenticated -->
 	<div class="flex justify-center items-center h-screen">
