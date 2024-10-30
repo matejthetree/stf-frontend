@@ -46,17 +46,21 @@ class Miha implements DiffusionInterface {
 		}
 	}
 
-	async processParams(prompt: string, ais: number) :Promise<void> {
-		console.log('processing params', prompt, ais);
+	async processParams(prompt: string, ais: number, inference_steps?: number, guidance_scale?: number, 
+		control_guidance_start?: number, control_guidance_end?: number) :Promise<void> {
+		console.log('processing params', prompt, ais, inference_steps, guidance_scale, control_guidance_start, control_guidance_end);
 		try {
 			// Example usage
 			const settings = {
 				prompt: 'architecture' + prompt,
 				negative_prompt: "human, body, face, low quality, medium quality, nudity, nsfw, naked, porn, person ",
 				seed: 12345,
-				inference_steps: 8,
+				inference_steps: inference_steps,
 				noise_strength: 0.5,
-				conditioning_scale: 0.95-ais*0.9
+				conditioning_scale: 0.95-ais*0.9,
+				guidance_scale: guidance_scale,
+				control_guidance_start: control_guidance_start,
+				control_guidance_end: control_guidance_end
 			};
 
 			const response = await axios.post('http://20.172.32.213:8080/settings', settings, {

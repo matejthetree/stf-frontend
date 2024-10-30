@@ -17,12 +17,18 @@ export async function processImage(base64Image: string): Promise<string | false>
 	return processed;
 }
 
-export async function updateParams(prompt: string, ais: number) {
-	console.log('update params', prompt, ais);
+export async function updateParams(prompt: string, ais: number, inference_steps?: number, guidance_scale?: number, control_guidance_start?: number, control_guidance_end?: number) {
+	console.log('update params', prompt, ais, inference_steps, guidance_scale, control_guidance_start, control_guidance_end);
 	lastAis = ais;
 	lastPrompt = prompt;
 
-	await diffusion.processParams(prompt, ais);
+	
+	if(inference_steps || guidance_scale || control_guidance_start || control_guidance_end) {
+		await diffusion.processParams(prompt, ais, inference_steps, guidance_scale, control_guidance_start, control_guidance_end);
+	}
+	else{
+		await diffusion.processParams(prompt, ais);
+	}
 
 	if (lastImgP != '') {
 		return processImage(lastImgP);

@@ -3,9 +3,10 @@
 	import Screens from '../components/Screens.svelte';
 	import Prompt from '../components/Prompt.svelte';
 	import StartStop from '../components/StartStop.svelte';
-	import AIStrength from '../components/AIStrength.svelte';
+	import CustomSlider from '../components/CustomSlider.svelte';
 	import { writable } from 'svelte/store';
-	import { aiStrength, promptC, sendParamsToApi } from '../store/ai-params.store';
+	import { aiStrength, promptC, guidance_scale, inference_steps, 
+		control_guidance_start, control_guidance_end ,sendParamsToApi } from '../store/ai-params.store';
 	import FSButton from '../components/FSButton.svelte';
 
 	const correctPassword = 'nvidiaxmicrosoft';
@@ -41,7 +42,7 @@
 				clearTimeout(timeoutId);
 			}
 			timeoutId = setTimeout(() => {
-				console.log($promptC, $aiStrength);
+				console.log($promptC, $aiStrength, $guidance_scale, $inference_steps, $control_guidance_start, $control_guidance_end);
 				sendParamsToApi();
 			}, 1000); // 1-second debounce delay
 		}
@@ -64,13 +65,26 @@
 		</div>
 
 		<!-- Remaining space taken by the slider and buttons -->
-		<div class="flex-none w-4/5 mx-auto ">
+
+		<div class="flex-none w-4/5 mx-auto">
 			<!-- Slider on the left -->
-			<AIStrength />
+			<CustomSlider value={aiStrength} min={0} max={1} step={0.05} label="AI Strength test" />
 
 			<!-- Start/Stop button at the bottom-right corner -->
 		</div>
-
+		<div class="flex-none w-4/5 mx-auto ">
+			<CustomSlider value={inference_steps} min={1} max={15} step={1} label="Inference Steps" />
+		</div>
+		<div class="flex-none w-4/5 mx-auto ">
+			<CustomSlider value={guidance_scale} min={1} max={6} step={0.01} label="Guidance Scale" />
+		</div>
+		<div class="flex-none w-4/5 mx-auto ">
+			<CustomSlider value={control_guidance_start} min={0} max={1} step={0.01} label="Control Guidance Start" />
+		</div>
+		<div class="flex-none w-4/5 mx-auto ">
+			<CustomSlider value={control_guidance_end} min={0} max={1} step={0.01} label="Control Guidance End" />
+		</div>
+		<br>
 		<div class="absolute bottom-6 right-6">
 			<StartStop />
 		</div>

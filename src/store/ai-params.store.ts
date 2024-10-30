@@ -5,6 +5,10 @@ export const started = writable(false);
 export const isRecording = writable(false);
 export const token = writable('default');
 export const aiStrength = writable(0.8);
+export const inference_steps = writable(8);
+export const guidance_scale = writable(2);
+export const control_guidance_start = writable(0);
+export const control_guidance_end = writable(1);
 export const promptC = writable("");
 export const promptEditing = writable(false);  // Tracks if the prompt is active (focused)
 
@@ -42,6 +46,10 @@ export function sendParamsToApi() {
 	formData.append('token', get(token));
 	formData.append('prompt', get(promptC));
 	formData.append('ais', get(aiStrength).toString());
+	formData.append('inference_steps', get(inference_steps).toString());
+	formData.append('guidance_scale', get(guidance_scale).toString());
+	formData.append('control_guidance_start', get(control_guidance_start).toString());
+	formData.append('control_guidance_end', get(control_guidance_end).toString());
 
 	fetch(apiUrl, {
 		method: 'POST',
