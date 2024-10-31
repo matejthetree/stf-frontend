@@ -4,6 +4,7 @@
 	import Prompt from '../components/Prompt.svelte';
 	import StartStop from '../components/StartStop.svelte';
 	import CustomSlider from '../components/CustomSlider.svelte';
+	import AiStrength from '../components/AIStrength.svelte';
 	import { writable } from 'svelte/store';
 	import { aiStrength, promptC, guidance_scale, inference_steps, 
 		control_guidance_start, control_guidance_end ,sendParamsToApi } from '../store/ai-params.store';
@@ -66,6 +67,12 @@
 
 		<!-- Remaining space taken by the slider and buttons -->
 
+		<div class="flex-none w-4/5 mx-auto">
+			<!-- Slider on the left -->
+			<AiStrength />
+
+			<!-- Start/Stop button at the bottom-right corner -->
+		</div>
 		<div class="flex-none w-4/5 mx-auto">
 			<!-- Slider on the left -->
 			<CustomSlider value={aiStrength} min={0} max={1} step={0.05} label="AI Strength test" />
