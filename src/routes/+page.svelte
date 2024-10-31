@@ -70,14 +70,11 @@
 		<div class="flex-none w-4/5 mx-auto">
 			<!-- Slider on the left -->
 			<AiStrength />
-
 			<!-- Start/Stop button at the bottom-right corner -->
 		</div>
+		<!--
 		<div class="flex-none w-4/5 mx-auto">
-			<!-- Slider on the left -->
 			<CustomSlider value={aiStrength} min={0} max={1} step={0.05} label="AI Strength test" />
-
-			<!-- Start/Stop button at the bottom-right corner -->
 		</div>
 		<div class="flex-none w-4/5 mx-auto ">
 			<CustomSlider value={inference_steps} min={1} max={15} step={1} label="Inference Steps" />
@@ -91,11 +88,11 @@
 		<div class="flex-none w-4/5 mx-auto ">
 			<CustomSlider value={control_guidance_end} min={0} max={1} step={0.01} label="Control Guidance End" />
 		</div>
-		<br>
+		-->
 		<div class="absolute bottom-6 right-6">
 			<StartStop />
 		</div>
-
+	
 		<FSButton></FSButton>
 
 	</div>
